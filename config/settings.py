@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary_storage',
+    'cloudinary',
 
     'audios',
 ]
@@ -141,3 +143,26 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Cloud storage validation
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': env('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': env('CLOUDINARY_API_KEY'),
+    'API_SECRET': env('CLOUDINARY_API_SECRET')
+}
+
+# New Cloud storage: pythonanywhere need to use api_proxy for uploading files
+
+# import cloudinary
+# cloudinary.config(
+#   cloud_name=env('CLOUDINARY_CLOUD_NAME'),
+#   api_key=env('CLOUDINARY_API_KEY'),
+#   api_secret=env('CLOUDINARY_API_SECRET'),
+#   api_proxy="http://proxy.server:3128"
+# )
+#
+# import cloudinary.uploader
+# import cloudinary.api
+
+# Cloud storage
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.VideoMediaCloudinaryStorage'
