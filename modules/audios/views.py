@@ -1,3 +1,9 @@
 from django.shortcuts import render
+from .models import Playlist, Audio
 
-# Create your views here.
+
+def index(request):
+    audios = Audio.objects.all()
+    playlist = Playlist.objects.all()
+
+    return render(request, 'audios/index.html', {'audios': audios, 'playlist': playlist})
