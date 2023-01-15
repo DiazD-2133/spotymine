@@ -1,0 +1,103 @@
+/* Some media queries for responsiveness */
+
+@media screen and (max-width: 870px) {
+  .modal.active {
+    visibility: visible;
+  }
+
+  #navMenu {
+    visibility: visible;
+  }
+
+  .sidenav {
+    visibility: hidden;
+    width: 0%;
+    z-index: 100;
+    transition: 0.4s;
+  }
+
+  .sidenav.active {
+    visibility: visible;
+    width: 40%;
+    transition: all 0.4s ease-in-out;
+  }
+
+  .container {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .index-title {
+    font-size: 2rem;
+  }
+
+  .icon {
+    opacity: 1;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    padding: 0;
+  }
+
+  h2 {
+    margin: 2rem 0 0 2rem;
+  }
+
+  .playlist,
+  .song {
+    justify-content: space-around;
+  }
+
+  .see-more a {
+    color: #818181;
+    position: relative;
+    bottom: 0rem;
+    font-size: 0.8rem;
+    font-weight: 900;
+    border: 3px #333131 solid;
+    padding: 1rem;
+  }
+
+  .title-music-container {
+    display: none;
+  }
+
+  .title-author {
+    display: block;
+    background: #0f0f0fd7;
+    width: 100%;
+    position: fixed;
+    bottom: 100px;
+    left: 0;
+    right: 0;
+    height: 35px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .song-title-author {
+    color: #818181;
+    font-size: 0.8rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* number of lines to show */
+    -webkit-box-orient: horizontal;
+  }
+
+  .add-song:hover {
+    opacity: 0.6;
+  }
+
+  .see-more a {
+    margin: 2.5rem;
+  }
+}
+
+/* Sidebar song */
+.sidenav .song-elements {
+  font-size: 0.6rem;
+  cursor: pointer;
+}
