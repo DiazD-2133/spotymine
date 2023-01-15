@@ -302,6 +302,6 @@ for (let i = 0; i < playlistObjets.length; i++) {
   });
 }
 
-if (songs.length === 2) {
+if (songs.length === 7) {
   seeMoreLink.classList.remove("hidden");
 }
