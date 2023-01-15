@@ -4,14 +4,15 @@ const sideBar = document.querySelector(".sidenav"),
   volIcon = document.getElementById("vol"),
   volume = document.getElementById("volume-slider"),
   songs = document.querySelectorAll(".get-music"),
+  playlistObjets = document.querySelectorAll(".playlist"),
   songTitle = document.querySelector(".song-title"),
   songTitleAuthor = document.querySelector(".song-title-author"),
   songAuthor = document.querySelector(".song-author"),
   addSong = document.querySelectorAll(".add-song"),
   previousButtom = document.querySelector(".previous"),
   nextButtom = document.querySelector(".next"),
-  currentTime = document.getElementById("CurrentSongTime");
-
+  currentTime = document.getElementById("CurrentSongTime"),
+  seeMoreLink = document.querySelector(".see-more-link");
 let onPlayList = [],
   songElements = [],
   listIndex = 0;
@@ -72,7 +73,15 @@ const addSidebarSong = (songData, onPlayList) => {
   });
 };
 
-const checkIf = (songData) => {};
+// empty sidebar
+const removeSideBarSongs = () => {
+  const sideSongs = document.querySelectorAll(".to-delete");
+  if (sideSongs) {
+    for (let i = 0; i < sideSongs.length; i++) {
+      sideSongs[i].remove();
+    }
+  }
+}
 
 // Playlist interactions
 // Create a new playlist with songs object
@@ -196,16 +205,19 @@ audio.src = songs[0].childNodes[7].href;
 */
 
 // Create song object
-const playASong = (songs, i) => {
+const createNewSong = (songs, i) => {
   const songData = {
     title: songs[i].childNodes[5].innerHTML,
     author: songs[i].childNodes[7].innerHTML,
     file: songs[i].childNodes[9].href,
   };
 
+  return newPlayList(songData);
+};
+
+const startPlaylist = (startPlaylist) => {
   // console.log(songs[i].childNodes)
 
-  let startPlaylist = newPlayList(songData);
   songTitle.innerHTML = startPlaylist[0].title;
   songAuthor.innerHTML = startPlaylist[0].author;
   songTitleAuthor.innerHTML =
@@ -220,14 +232,10 @@ for (let i = 0; i < songs.length; i++) {
   // add click event to song tittle
   songs[i].childNodes[5].addEventListener("click", () => {
     // Delete songs in sideBar
-    const sideSongs = document.querySelectorAll(".to-delete");
-    if (sideSongs) {
-      for (let i = 0; i < sideSongs.length; i++) {
-        sideSongs[i].remove();
-      }
-    }
+    removeSideBarSongs();
 
-    playASong(songs, i);
+    const myNewList = createNewSong(songs, i);
+    startPlaylist(myNewList);
   });
 
   // Show and hidde plus circle
@@ -261,12 +269,39 @@ for (let i = 0; i < songs.length; i++) {
         addPlayListItem(songData);
       }
     } else {
-      playASong(songs, i);
+      const myNewList = createNewSong(songs, i);
+      startPlaylist(myNewList);
     }
   });
 }
 
 audio.addEventListener("ended", () => {
+  songElements[listIndex].classList.remove("active");
   listIndex = listIndex + 1;
+  songElements[listIndex].classList.add("active");
   changeSong(listIndex);
 });
+
+// Playlists evets
+for (let i = 0; i < playlistObjets.length; i++) {
+  playlistObjets[i].addEventListener("click", () => {
+    onPlayList = myPlayLists[i].songs;
+    removeSideBarSongs();
+
+    for (let i = 0; i < onPlayList.length; i++) {
+      const songData = {
+        title: onPlayList[i].title,
+        author: onPlayList[i].author,
+        file: onPlayList[i].file,
+      };
+
+      addSidebarSong(songData, onPlayList);
+    }
+
+    startPlaylist(onPlayList);
+  });
+}
+
+if (songs.length === 2) {
+  seeMoreLink.classList.remove("hidden");
+}

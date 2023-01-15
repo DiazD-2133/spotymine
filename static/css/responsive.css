@@ -37,6 +37,29 @@
 }
 
 @media screen and (max-width: 600px) {
+  .container {
+    padding: 0;
+  }
+
+  h2 {
+    margin: 2rem 0 0 2rem;
+  }
+
+  .playlist,
+  .song {
+    justify-content: space-around;
+  }
+
+  .see-more a {
+    color: #818181;
+    position: relative;
+    bottom: 0rem;
+    font-size: 0.8rem;
+    font-weight: 900;
+    border: 3px #333131 solid;
+    padding: 1rem;
+  }
+
   .title-music-container {
     display: none;
   }
@@ -64,17 +87,17 @@
     -webkit-box-orient: horizontal;
   }
 
-  .hidden {
-    visibility: visible;
-  }
-
   .add-song:hover {
     opacity: 0.6;
+  }
+
+  .see-more a {
+    margin: 2.5rem;
   }
 }
 
 /* Sidebar song */
 .sidenav .song-elements {
-    font-size: 0.6rem;
-    cursor: pointer;
+  font-size: 0.6rem;
+  cursor: pointer;
 }

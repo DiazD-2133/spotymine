@@ -193,6 +193,45 @@
 
 .title-author {
   display: none;
+  overflow-x: hidden;
+}
+
+.song-title-author {
+  animation-name: rightToLeft;
+  animation-duration: 6s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  /* animation: rightToLeft 4.5s linear infinite; */
+}
+
+@keyframes rightToLeft {
+  0% {
+    transform: translateX(300px);
+  }
+  100% {
+    transform: translateX(-280px);
+  }
+}
+
+.see-more {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  background-color: #1d1c1c;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.see-more a {
+  color: #818181;
+  position: relative;
+  bottom: -10rem;
+  font-size: 0.8rem;
+  font-weight: 900;
+}
+
+.see-more a:hover {
+  color: #fff;
 }
 
 .media-player {
@@ -208,7 +247,7 @@
   align-items: center;
 }
 
-/*=============================*/
+/*======= Media Player ===========*/
 
 .title-music-container {
   margin-top: 20px;
