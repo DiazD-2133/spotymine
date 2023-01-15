@@ -1,0 +1,50 @@
+{% extends 'audios/base.html' %} {% load static %} {% block content %}
+<h2 class="title">Playlists</h2>
+
+<div class="mar15 playlist">
+  {% if playlists %} {% for playlist in playlists %}
+  <a href="#">
+    <div class="content mar15">
+      <div class="card">
+        <img src="{{ playlist.image.url }}" alt="" />
+        <h4>{{ playlist.name }}</h4>
+      </div>
+    </div>
+  </a>
+  {% endfor %} {% endif %}
+</div>
+<h2 class="title">Canciones</h2>
+
+<!-- Songs -->
+<div class="mar15 song">
+  {% for audio in audios %} {% if audio.category.name == "song" %}
+  <div class="song mar15">
+    <div class="content">
+      <div class="card get-music">
+        <img
+          class="add-song hidden"
+          src="{% static 'img/mediaPlayer/plus-circle.svg' %}"
+          alt=""
+        />
+        <img src="{{ audio.image.url }}" alt="" />
+        <h4>{{ audio.name }}</h4>
+        <p>{{ audio.author }}</p>
+        <a href="{{ audio.file.url }}"></a>
+      </div>
+    </div>
+  </div>
+  <!-- TEST -->
+
+  {% endif %} {% endfor %}
+
+  <div class="song mar15">
+    <div class="content">
+      <div class="see-more">
+        <a class="see-more-link hidden" href="{{ audio.file.url }}">
+          Ver mas...</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="{% static 'img/icon/love-song.png' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
+    <title>Spotimine</title>
+  </head>
+  <body>
+    <!-- Creating ´playList Objets -->
+    <script type="text/javascript">
+      const myPlayLists = []
+      const songsList = []
+      {% for playlist in playlists %}
+
+      const myList = {
+        name: "{{ playlist.name }}",
+        songs:[
+          {% for song in playlist.songs.all %}
+            {% if not forloop.first %},{% endif %}
+            {
+              title: "{{ song.name }}",
+              author: "{{ song.author }}",
+              file: "{{ song.file.url }}",
+            }
+
+          {% endfor %}
+        ]
+      }
+
+      myPlayLists.push(myList)
+
+      {% endfor %}
+    </script>
+
+    <div class="main">
+      <div class="modal"></div>
+
+      <!--Sidebar section-->
+
+      <div id="navMenu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <nav class="sidenav">
+        <div class="nav-item">
+          <a href="{% url 'audios:Index' %}"> Inicio </a>
+        </div>
+        <div class="nav-item">
+          <a href="#"> Biblioteca </a>
+        </div>
+        <div class="line"></div>
+      </nav>
+
+      <div class="container">
+        <h2 class="title">Playlists</h2>
+
+        <div class="mar15 playlist">
+          {% if playlists %} {% for playlist in playlists %}
+          <a href="#">
+            <div class="content mar15">
+              <div class="card">
+                <img src="{{ playlist.image.url }}" alt="" />
+                <h4>{{ playlist.name }}</h4>
+              </div>
+            </div>
+          </a>
+          {% endfor %} {% endif %}
+        </div>
+        <h2 class="title">Canciones</h2>
+        
+        <!-- Songs -->
+        <div class="mar15 song">
+          {% for audio in audios %} {% if audio.category.name == "song" %}
+          <div class="song mar15">
+            <div class="content">
+              <div class="card get-music">
+                <img
+                  class="add-song hidden"
+                  src="{% static 'img/mediaPlayer/plus-circle.svg' %}"
+                  alt=""
+                />
+                <img src="{{ audio.image.url }}" alt="" />
+                <h4>{{ audio.name }}</h4>
+                <p>{{ audio.author }}</p>
+                <a href="{{ audio.file.url }}"></a>
+              </div>
+            </div>
+          </div>
+          <!-- TEST -->
+
+          {% endif %} {% endfor %}
+
+          <div class="song mar15">
+            <div class="content">
+              <div class="see-more">
+                <a class="see-more-link hidden" href="{{ audio.file.url }}">
+                  Ver mas...</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="media-space"></div>
+      </div>
+    </div>
+
+    <!-- Media Player -->
+
+    <div class="title-author">
+      <h4 class="song-title-author"></h4>
+    </div>
+    <div class="media-player">
+      <div class="title-music-container">
+        <h4 class="song-title">Selecciona</h4>
+        <span class="song-author"></span>
+      </div>
+      <div class="music-player-container">
+        <div class="main-song-controls">
+          <img
+            src="{% static 'img/mediaPlayer/previous.svg' %}"
+            alt=""
+            class="icon previous"
+            id="previousSong"
+          />
+          <!--
+          <img
+            src="{% static 'img/mediaPlayer/Backward.svg' %}"
+            alt=""
+            class="icon"
+            id="Back10"
+          />
+          -->
+          <img
+            src="{% static 'img/mediaPlayer/Play.svg' %}"
+            alt=""
+            class="icon"
+            id="PlayPause"
+          />
+          <!--
+          <img
+            src="{% static 'img/mediaPlayer/Forward.svg' %}"
+            alt=""
+            class="icon"
+            id="Plus10"
+          />
+          -->
+          <img
+            src="{% static 'img/mediaPlayer/next.svg' %}"
+            alt=""
+            class="icon next"
+            id="nextSong"
+          />
+        </div>
+        <div class="controls-music-container">
+          <div class="progress-bar">
+            <span class="progress"></span>
+          </div>
+        </div>
+        <div class="time-container">
+          <span class="time-left" id="CurrentSongTime"></span>
+          <span class="time-lef" id="SongLength"></span>
+        </div>
+        <audio controls preload="metadata" src=""></audio>
+      </div>
+      <div class="volume-controls">
+        <img
+          src="{% static 'img/mediaPlayer/volume.svg' %}"
+          alt=""
+          class="icon"
+          id="vol"
+        />
+        <input type="range" step="any" id="volume-slider" class="slider" />
+      </div>
+    </div>
+    <script src="{% static 'scripts/index.js' %}"></script>
+    <script src="{% static 'scripts/responsive.js' %}"></script>
+  </body>
+</html>
