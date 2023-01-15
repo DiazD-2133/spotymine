@@ -3,7 +3,7 @@ from .models import Playlist, Audio
 
 
 def index(request):
-    audios = Audio.objects.all()
-    playlist = Playlist.objects.all()
+    audios = Audio.objects.select_related('category').all()[:7]
+    playlists = Playlist.objects.all()
 
-    return render(request, 'audios/index.html', {'audios': audios, 'playlist': playlist})
+    return render(request, 'audios/index.html', {'audios': audios, 'playlists': playlists})
