@@ -15,9 +15,10 @@
     <script type="text/javascript">
       const myPlayLists = []
       const songsList = []
+      let myList = {}
       {% for playlist in playlists %}
 
-          const myList = {
+            myList = {
           name: "{{ playlist.name }}",
           songs:[
               {% for song in playlist.songs.all %}
@@ -31,6 +32,7 @@
           ]
           }
           myPlayLists.push(myList)
+          myList = {}
       {% endfor %}
     </script>
 
@@ -61,7 +63,6 @@
         {% endblock %}
         <div class="media-space"></div>
       </div>
-      
     </div>
 
     <!-- Media Player -->

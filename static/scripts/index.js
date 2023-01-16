@@ -4,7 +4,7 @@ const sideBar = document.querySelector(".sidenav"),
   volIcon = document.getElementById("vol"),
   volume = document.getElementById("volume-slider"),
   songs = document.querySelectorAll(".get-music"),
-  playlistObjets = document.querySelectorAll(".playlist"),
+  playlistObjets = document.querySelectorAll(".playlist-object"),
   songTitle = document.querySelector(".song-title"),
   songTitleAuthor = document.querySelector(".song-title-author"),
   songAuthor = document.querySelector(".song-author"),
@@ -81,7 +81,7 @@ const removeSideBarSongs = () => {
       sideSongs[i].remove();
     }
   }
-}
+};
 
 // Playlist interactions
 // Create a new playlist with songs object
@@ -106,7 +106,7 @@ const changeSong = (listIndex) => {
     songTitle.innerHTML = onPlayList[listIndex].title;
     songAuthor.innerHTML = onPlayList[listIndex].author;
     songTitleAuthor.innerHTML =
-      "${onPlayList[listIndex].title} - ${onPlayList[listIndex].author}";
+      onPlayList[listIndex].title + " - " + onPlayList[listIndex].author;
     audio.src = onPlayList[listIndex].file;
     audio.play();
   }
@@ -244,7 +244,11 @@ for (let i = 0; i < songs.length; i++) {
   });
 
   songs[i].addEventListener("mouseout", () => {
-    addSong[i].classList.add("hidden");
+    if (window.screen.availWidth > 600) {
+      for (let i = 0; i < songs.length; i++) {
+        addSong[i].classList.add("hidden");
+      }
+    }
   });
 
   // add new song to the list
