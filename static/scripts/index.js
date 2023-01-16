@@ -50,14 +50,14 @@ function setProgress() {
 }
 
 // Fill sideBar
-const addSidebarSong = (songData, onPlayList) => {
+const addSidebarSong = (songData, id) => {
   // Create new div item
   const navItem = document.createElement("div");
   navItem.classList.add("nav-item");
   navItem.classList.add("to-delete");
   const songName = document.createElement("a");
   songName.innerHTML = songData.title + " - " + songData.author;
-  songName.setAttribute("id", String(onPlayList.length - 1));
+  songName.setAttribute("id", id);
   songName.classList.add("song-elements");
   navItem.appendChild(songName);
   sideBar.appendChild(navItem);
@@ -65,6 +65,8 @@ const addSidebarSong = (songData, onPlayList) => {
 
   songName.addEventListener("click", () => {
     changeSong(songName.id);
+    listIndex = songName.id;
+
     for (let i = 0; i < songElements.length; i++) {
       songElements[i].classList.remove("active");
     }
@@ -88,7 +90,8 @@ const removeSideBarSongs = () => {
 const newPlayList = (songData) => {
   onPlayList = [];
   onPlayList.push(songData);
-  addSidebarSong(songData, onPlayList);
+  songElements = [];
+  addSidebarSong(songData, 0);
   songElements[0].classList.add("active");
 
   return onPlayList;
@@ -98,7 +101,7 @@ const addPlayListItem = (songData) => {
   onPlayList.push(songData);
   console.log(onPlayList);
 
-  addSidebarSong(songData, onPlayList);
+  addSidebarSong(songData, onPlayList.length - 1);
 };
 
 const changeSong = (listIndex) => {
@@ -107,6 +110,8 @@ const changeSong = (listIndex) => {
     songAuthor.innerHTML = onPlayList[listIndex].author;
     songTitleAuthor.innerHTML =
       onPlayList[listIndex].title + " - " + onPlayList[listIndex].author;
+    songElements[listIndex].classList.add("active");
+
     audio.src = onPlayList[listIndex].file;
     audio.play();
   }
@@ -144,6 +149,7 @@ back10.addEventListener("click", () => {
 
 nextButtom.addEventListener("click", () => {
   if (listIndex < onPlayList.length && onPlayList.length > 1) {
+    songElements[listIndex].classList.remove("active");
     listIndex++;
     changeSong(listIndex);
   }
@@ -151,6 +157,7 @@ nextButtom.addEventListener("click", () => {
 
 previousButtom.addEventListener("click", () => {
   if (listIndex > 0) {
+    songElements[listIndex].classList.remove("active");
     listIndex--;
   }
   changeSong(listIndex);
@@ -289,6 +296,13 @@ audio.addEventListener("ended", () => {
 // Playlists evets
 for (let i = 0; i < playlistObjets.length; i++) {
   playlistObjets[i].addEventListener("click", () => {
+    // Active navBAr to show list in phones
+    navMenu.previousElementSibling.classList.toggle("active");
+    navMenu.classList.toggle("active");
+    navMenu.nextElementSibling.classList.toggle("active");
+
+    songElements = [];
+
     onPlayList = myPlayLists[i].songs;
     removeSideBarSongs();
 
@@ -299,9 +313,10 @@ for (let i = 0; i < playlistObjets.length; i++) {
         file: onPlayList[i].file,
       };
 
-      addSidebarSong(songData, onPlayList);
+      addSidebarSong(songData, i);
     }
 
+    songElements[0].classList.add("active");
     startPlaylist(onPlayList);
   });
 }
