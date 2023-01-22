@@ -119,11 +119,12 @@
         </div>
         <div class="time-container">
           <span class="time-left" id="CurrentSongTime"></span>
+          <span class="divisor"> / </span>
           <span class="time-lef" id="SongLength"></span>
         </div>
         <audio controls preload="metadata" src=""></audio>
       </div>
-      <div class="volume-controls">
+      <div class="volume-controls vol-disable">
         <img
           src="{% static 'img/mediaPlayer/volume.svg' %}"
           alt=""

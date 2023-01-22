@@ -1,6 +1,7 @@
 const sideBar = document.querySelector(".sidenav"),
   audio = document.querySelector("audio"),
   songLength = document.getElementById("SongLength"),
+  divisor = document.querySelector(".divisor"),
   volIcon = document.getElementById("vol"),
   volume = document.getElementById("volume-slider"),
   songs = document.querySelectorAll(".get-music"),
@@ -252,6 +253,7 @@ for (let i = 0; i < songs.length; i++) {
 
   // Show and hidde plus circle
   songs[i].addEventListener("mouseover", () => {
+    divisor.classList.add("active");
     addSong[i].classList.remove("hidden");
   });
 
@@ -305,6 +307,8 @@ for (let i = 0; i < playlistObjets.length; i++) {
     navMenu.previousElementSibling.classList.toggle("active");
     navMenu.classList.toggle("active");
     navMenu.nextElementSibling.classList.toggle("active");
+
+    divisor.classList.add("active");
 
     songElements = [];
 

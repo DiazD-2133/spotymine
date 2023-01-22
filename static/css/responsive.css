@@ -94,6 +94,41 @@
   .see-more a {
     margin: 2.5rem;
   }
+
+  /* Media Player */
+  .media-player {
+    display: block;
+  }
+
+  .main-song-controls {
+    height: 35px;
+    width: 60%;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .music-player-container {
+    width: 100%;
+    margin: 20px auto;
+  }
+
+  .time-container {
+    display: inline;
+    text-align: center;
+    margin: 5px;
+  }
+  
+  .time-left {
+    margin: 20px auto;
+  }
+
+  .divisor.active {
+    visibility: visible;
+  }
+
+  .vol-disable {
+    display: none;
+  }
 }
 
 /* Sidebar song */

@@ -166,17 +166,18 @@
 }
 
 .playlist img {
-  height: 10rem;
+  max-height: 8rem;
 }
 
 .song img {
-  height: 6rem;
+  height: 7rem;
 }
 
 .card h4 {
   width: 8rem;
   color: #dfdfdf;
   overflow: hidden;
+  padding: 0.8rem;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2; /* number of lines to show */
@@ -347,6 +348,10 @@
 
 .time-left {
   margin-top: 0.3rem;
+}
+
+.divisor {
+  visibility: hidden;
 }
 
 .main-song-controls {
