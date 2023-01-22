@@ -13,9 +13,32 @@ class Category(models.Model):
         return self.name
 
 
+class RecommendedArtist(models.Model):
+    band = models.ForeignKey("Artist", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.band.name
+
+
+class Artist(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+
+class Genre(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+
 class Audio(models.Model):
     name = models.CharField(max_length=255)
     author = models.CharField(max_length=255)
+    artist = models.ForeignKey(Artist, null=True, on_delete=models.PROTECT)
+    genre = models.ForeignKey(Genre, null=True, on_delete=models.PROTECT)
     duration = models.CharField(max_length=10)
     image = models.ImageField(upload_to="songs_image", blank=True, storage=MediaCloudinaryStorage)
     file = models.FileField(upload_to="music1")
