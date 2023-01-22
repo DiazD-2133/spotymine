@@ -1,7 +1,9 @@
 {% extends 'audios/base.html' %} {% load static %} {% block content %}
-<h2 class="title">Playlists</h2>
 
-<div class="mar15 playlist">
+
+<!-- Playlists -->
+<h2 class="title">Listas de Reproducción</h2>
+<div class="mar15 playlists">
   {% if playlists %} {% for playlist in playlists %}
     <div class="content mar15 playlist-object">
       <div class="card">
@@ -11,9 +13,9 @@
     </div>
   {% endfor %} {% endif %}
 </div>
-<h2 class="title">Canciones</h2>
 
 <!-- Songs -->
+<h2 class="title">Canciones</h2>
 <div class="mar15 song">
   {% for audio in audios %} {% if audio.category.name == "song" %}
   <div class="song mar15">
