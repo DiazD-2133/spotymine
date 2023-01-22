@@ -10,6 +10,10 @@
   font-weight: 400;
 }
 
+.mar15 {
+  margin: 1.5rem;
+}
+
 .modal {
   visibility: hidden;
   width: 100%;
@@ -124,13 +128,11 @@
 .songs {
   display: flex;
   flex-wrap: wrap;
+  margin-bottom: 4.5rem;
 }
 
-.mar15 {
-  margin: 1.5rem;
-}
-
-.playlist-object {
+.playlist-object,
+.song {
   cursor: pointer;
 }
 

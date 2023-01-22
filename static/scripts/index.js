@@ -13,6 +13,7 @@ const sideBar = document.querySelector(".songs-container"),
   previousButtom = document.querySelector(".previous"),
   nextButtom = document.querySelector(".next"),
   currentTime = document.getElementById("CurrentSongTime"),
+  seeCount = document.querySelectorAll(".see-count"),
   seeMoreLink = document.querySelector(".see-more-link");
 let onPlayList = [],
   songElements = [],
@@ -242,8 +243,9 @@ const startPlaylist = (startPlaylist) => {
 };
 
 for (let i = 0; i < songs.length; i++) {
+
   // add click event to song tittle
-  songs[i].childNodes[5].addEventListener("click", () => {
+  songs[i].addEventListener("click", () => {
     // Delete songs in sideBar
     removeSideBarSongs();
 
@@ -266,7 +268,8 @@ for (let i = 0; i < songs.length; i++) {
   });
 
   // add new song to the list
-  addSong[i].addEventListener("click", () => {
+  addSong[i].addEventListener("click", (e) => {
+    e.stopPropagation();
     if (onPlayList.length > 0) {
       const songData = {
         title: songs[i].childNodes[5].innerHTML,
@@ -282,7 +285,6 @@ for (let i = 0; i < songs.length; i++) {
           return e.author === songData.author;
         }).length > 0
       ) {
-        console.log(true);
       } else {
         addPlayListItem(songData);
       }
@@ -330,6 +332,6 @@ for (let i = 0; i < playlistObjets.length; i++) {
   });
 }
 
-if (songs.length === 7) {
+if (seeCount.length === 7) {
   seeMoreLink.classList.remove("hidden");
 }

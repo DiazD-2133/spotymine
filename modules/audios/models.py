@@ -36,16 +36,16 @@ class Genre(models.Model):
 
 class Audio(models.Model):
     name = models.CharField(max_length=255)
-    author = models.CharField(max_length=255)
     artist = models.ForeignKey(Artist, null=True, on_delete=models.PROTECT)
     genre = models.ForeignKey(Genre, null=True, on_delete=models.PROTECT)
     duration = models.CharField(max_length=10)
     image = models.ImageField(upload_to="songs_image", blank=True, storage=MediaCloudinaryStorage)
+    image_link = models.CharField(max_length=255, default="")
     file = models.FileField(upload_to="music1")
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
 
     def __str__(self):
-        return f"{self.name} - {self.author}"
+        return f"{self.name} - {self.artist}"
 
 
 class Playlist(models.Model):

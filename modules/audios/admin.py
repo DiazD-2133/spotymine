@@ -4,8 +4,8 @@ from . import models
 
 @admin.register(models.Audio)
 class AudioAdmin(admin.ModelAdmin):
-    list_display = ["name", "author", "duration", "category"]
-    search_fields = ['name', "author", "artist"]
+    list_display = ["name", "artist", "duration", "category"]
+    search_fields = ['name', "artist"]
 
 
 @admin.register(models.Playlist)
