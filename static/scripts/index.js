@@ -1,4 +1,4 @@
-const sideBar = document.querySelector(".sidenav"),
+const sideBar = document.querySelector(".songs-container"),
   audio = document.querySelector("audio"),
   songLength = document.getElementById("SongLength"),
   divisor = document.querySelector(".divisor"),
