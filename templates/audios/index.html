@@ -20,15 +20,21 @@
   {% for audio in audios %} {% if audio.category.name == "song" %}
   <div class="song mar15 see-count">
     <div class="content">
-      <div class="card get-music">
+      <div class="card get-music" title="{{ audio.name }}">
         <img
           class="add-song hidden"
           src="{% static 'img/mediaPlayer/plus-circle.svg' %}"
           alt=""
         />
-        <img src="{{ audio.image.url }}" alt="" />
+        <img src="
+        {% if audio.image %}
+          {{ audio.image.url }}
+        {% else %}
+          {{ audio.image_link }}
+        {% endif %}
+        " alt="" />
         <h4>{{ audio.name }}</h4>
-        <p>{{ audio.author }}</p>
+        <p>{{ audio.artist }}</p>
         <a href="{{ audio.file.url }}"></a>
       </div>
     </div>
@@ -52,15 +58,21 @@
   {% for audio in new_audios %} {% if audio.category.name == "song" %}
   <div class="song mar15">
     <div class="content">
-      <div class="card get-music">
+      <div class="card get-music" title="{{ audio.name }}">
         <img
           class="add-song hidden"
           src="{% static 'img/mediaPlayer/plus-circle.svg' %}"
           alt=""
         />
-        <img src="{{ audio.image.url }}" alt="" />
+        <img src="
+        {% if audio.image %}
+          {{ audio.image.url }}
+        {% else %}
+          {{ audio.image_link }}
+        {% endif %}
+        " alt="" />
         <h4>{{ audio.name }}</h4>
-        <p>{{ audio.author }}</p>
+        <p>{{ audio.artist }}</p>
         <a href="{{ audio.file.url }}"></a>
       </div>
     </div>
