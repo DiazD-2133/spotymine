@@ -18,7 +18,7 @@
 
   .sidenav.active {
     visibility: visible;
-    width: 40%;
+    width: 46%;
     transition: all 0.4s ease-in-out;
   }
 
@@ -45,24 +45,23 @@
     margin: 2rem 0 0 2rem;
   }
 
-  .playlists {
+  .playlists,
+  .songs {
     max-width: 100%;
     display: flex;
     overflow: auto;
     flex-wrap: unset;
   }
 
-  .song {
-    justify-content: space-around;
-  }
-
   .see-more a {
+    display: block;
     color: #818181;
     position: relative;
-    bottom: 0rem;
+    bottom: -9.5rem;
     font-size: 0.8rem;
     font-weight: 900;
-    border: 3px #333131 solid;
+    border: 2px #333131 solid;
+    width: 8rem;
     padding: 1rem;
   }
 
@@ -95,10 +94,6 @@
 
   .add-song:hover {
     opacity: 0.6;
-  }
-
-  .see-more a {
-    margin: 2.5rem;
   }
 
   /* Media Player */
