@@ -106,6 +106,7 @@ const addPlayListItem = (songData) => {
 
 const changeSong = (listIndex) => {
   if (listIndex < onPlayList.length) {
+    playPause.src = "static/img/mediaPlayer/pause.svg";
     songTitle.innerHTML = onPlayList[listIndex].title;
     songAuthor.innerHTML = onPlayList[listIndex].author;
     songTitleAuthor.innerHTML =
@@ -151,6 +152,9 @@ nextButtom.addEventListener("click", () => {
   if (listIndex < onPlayList.length && onPlayList.length > 1) {
     songElements[listIndex].classList.remove("active");
     listIndex++;
+    if(listIndex === onPlayList.length) {
+      listIndex--;
+    }
     changeSong(listIndex);
   }
 });
@@ -159,6 +163,7 @@ previousButtom.addEventListener("click", () => {
   if (listIndex > 0) {
     songElements[listIndex].classList.remove("active");
     listIndex--;
+    console.log(listIndex, onPlayList.length)
   }
   changeSong(listIndex);
 });
