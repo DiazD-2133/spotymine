@@ -270,6 +270,11 @@ for (let i = 0; i < songs.length; i++) {
   // add new song to the list
   addSong[i].addEventListener("click", (e) => {
     e.stopPropagation();
+
+    navMenu.previousElementSibling.classList.toggle("active");
+    navMenu.classList.toggle("active");
+    navMenu.nextElementSibling.classList.toggle("active");
+    
     if (onPlayList.length > 0) {
       const songData = {
         title: songs[i].childNodes[5].innerHTML,
