@@ -39,7 +39,7 @@
                       title: "{{ song.name }}",
                       author: "{{ song.artist }}",
                       file: "{{ song.file.url }}",
-                      img: "{{ song.image.url }}"
+                      img: "{% if song.image %} {{ song.image.url }} {% else %} {{ song.image_link }} {% endif %}"
                   }
               {% endfor %}
           ]
