@@ -6,13 +6,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="{% static 'img/icon/love-song.png' %}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
+
+    <script src="{% static 'scripts/page-behavior.js' %}" defer></script>
+    <script src="{% static 'scripts/app.js' %}" defer></script>
+    <script src="{% static 'scripts/media-player.js' %}" defer></script>
+    <script src="{% static 'scripts/responsive.js' %}" defer></script>
     <title>Spotimine</title>
   </head>
   <body>
-    <!-- Creating ´playList Objets -->
+    <!-- Create ´playList Objets -->
     <script type="text/javascript">
       const myPlayLists = []
       const songsList = []
@@ -28,6 +39,7 @@
                       title: "{{ song.name }}",
                       author: "{{ song.artist }}",
                       file: "{{ song.file.url }}",
+                      img: "{{ song.image.url }}"
                   }
               {% endfor %}
           ]
@@ -36,28 +48,32 @@
           myList = {}
       {% endfor %}
     </script>
+    <header id="main-header"></header>
 
-    <div class="main">
-      <div class="modal"></div>
+    <main class="main">
+      <div id="overlay"></div>
 
       <!--Sidebar section-->
 
-      <div id="navMenu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-
-      <nav class="sidenav">
-        <div class="nav-item">
-          <a href="{% url 'audios:Index' %}"><i class="fa-sharp fa-solid fa-house"></i> Inicio </a>
+      <aside>
+        <div id="navMenu">
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
-        <div class="nav-item">
-          <a href="#"><i class="fa-solid fa-table-list"></i> Biblioteca </a>
-        </div>
-        <div class="line"></div>
-        <div class="songs-container"></div>
-      </nav>
+        <nav class="sidenav">
+          <div class="nav-item">
+            <a href="{% url 'audios:Index' %}"
+              ><i class="fa-sharp fa-solid fa-house"></i> Inicio
+            </a>
+          </div>
+          <!-- <div class="nav-item">
+            <a href="#"><i class="fa-solid fa-table-list"></i> Biblioteca </a>
+          </div> -->
+          <div class="line"></div>
+          <div class="songs-container"></div>
+        </nav>
+      </aside>
 
       <div class="container">
         {% block content %}
@@ -65,7 +81,7 @@
         {% endblock %}
         <div class="media-space"></div>
       </div>
-    </div>
+    </main>
 
     <!-- Media Player -->
 
@@ -73,9 +89,14 @@
       <h4 class="song-title-author"></h4>
     </div>
     <div class="media-player">
-      <div class="title-music-container">
-        <h4 class="song-title">Selecciona</h4>
-        <span class="song-author"></span>
+      <div class="son-info">
+        <div class="lef">
+          <img class="playing-song-img" src="" alt="song-img" />
+        </div>
+        <div class="right">
+          <h4 class="song-title"></h4>
+          <span class="song-author"></span>
+        </div>
       </div>
       <div class="music-player-container">
         <div class="main-song-controls">
@@ -136,7 +157,5 @@
         <input type="range" step="any" id="volume-slider" class="slider" />
       </div>
     </div>
-    <script src="{% static 'scripts/index.js' %}"></script>
-    <script src="{% static 'scripts/responsive.js' %}"></script>
   </body>
 </html>

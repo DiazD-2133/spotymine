@@ -1,26 +1,4 @@
-const sideBar = document.querySelector(".songs-container"),
-  audio = document.querySelector("audio"),
-  songLength = document.getElementById("SongLength"),
-  divisor = document.querySelector(".divisor"),
-  volIcon = document.getElementById("vol"),
-  volume = document.getElementById("volume-slider"),
-  songs = document.querySelectorAll(".get-music"),
-  playlistObjets = document.querySelectorAll(".playlist-object"),
-  songTitle = document.querySelector(".song-title"),
-  songTitleAuthor = document.querySelector(".song-title-author"),
-  songAuthor = document.querySelector(".song-author"),
-  addSong = document.querySelectorAll(".add-song"),
-  previousButtom = document.querySelector(".previous"),
-  nextButtom = document.querySelector(".next"),
-  currentTime = document.getElementById("CurrentSongTime"),
-  seeCount = document.querySelectorAll(".see-count"),
-  seeMoreLink = document.querySelector(".see-more-link");
-let onPlayList = [],
-  songElements = [],
-  listIndex = 0;
-
-audio.removeAttribute("src");
-
+// Time Section
 const calculateTime = (secs) => {
   const minutes = Math.floor(secs / 60),
     seconds = Math.floor(secs % 60),
@@ -51,42 +29,6 @@ function setProgress() {
   document.querySelector(".progress").style.width = percentage + "%";
 }
 
-// Fill sideBar
-const addSidebarSong = (songData, id) => {
-  // Create new div item
-  const navItem = document.createElement("div");
-  navItem.classList.add("nav-item");
-  navItem.classList.add("to-delete");
-  const songName = document.createElement("a");
-  songName.innerHTML = songData.title + " - " + songData.author;
-  songName.setAttribute("id", id);
-  songName.classList.add("song-elements");
-  navItem.appendChild(songName);
-  sideBar.appendChild(navItem);
-  songElements.push(songName);
-
-  songName.addEventListener("click", () => {
-    changeSong(songName.id);
-    listIndex = parseInt(songName.id);
-
-    for (let i = 0; i < songElements.length; i++) {
-      songElements[i].classList.remove("active");
-    }
-    songName.classList.add("active");
-    playPause.src = "static/img/mediaPlayer/pause.svg";
-  });
-};
-
-// empty sidebar
-const removeSideBarSongs = () => {
-  const sideSongs = document.querySelectorAll(".to-delete");
-  if (sideSongs) {
-    for (let i = 0; i < sideSongs.length; i++) {
-      sideSongs[i].remove();
-    }
-  }
-};
-
 // Playlist interactions
 // Create a new playlist with songs object
 const newPlayList = (songData) => {
@@ -101,7 +43,6 @@ const newPlayList = (songData) => {
 
 const addPlayListItem = (songData) => {
   onPlayList.push(songData);
-  console.log(onPlayList);
 
   addSidebarSong(songData, onPlayList.length - 1);
 };
@@ -109,6 +50,7 @@ const addPlayListItem = (songData) => {
 const changeSong = (listIndex) => {
   if (listIndex < onPlayList.length) {
     playPause.src = "static/img/mediaPlayer/pause.svg";
+    playingSongImg.src = onPlayList[listIndex].img;
     songTitle.innerHTML = onPlayList[listIndex].title;
     songAuthor.innerHTML = onPlayList[listIndex].author;
     songTitleAuthor.innerHTML =
@@ -120,10 +62,8 @@ const changeSong = (listIndex) => {
   }
 };
 
-// Audio Controls
-const playPause = document.getElementById("PlayPause"),
-  plus10 = document.getElementById("Plus10"),
-  back10 = document.getElementById("Back10");
+// Play-Pause
+const playPause = document.getElementById("PlayPause");
 
 playPause.addEventListener("click", () => {
   if (audio.src) {
@@ -139,7 +79,8 @@ playPause.addEventListener("click", () => {
   }
 });
 
-/* 
+/* avance 10 sec
+
 move 10 seconds in timebar
 plus10.addEventListener("click", () => {
   audio.currentTime += 10;
@@ -150,11 +91,13 @@ back10.addEventListener("click", () => {
 }); 
 */
 
+// Navegation Buttons
+
 nextButtom.addEventListener("click", () => {
   if (listIndex < onPlayList.length && onPlayList.length > 1) {
     songElements[listIndex].classList.remove("active");
     listIndex++;
-    if(listIndex === onPlayList.length) {
+    if (listIndex === onPlayList.length) {
       listIndex--;
     }
     changeSong(listIndex);
@@ -165,25 +108,11 @@ previousButtom.addEventListener("click", () => {
   if (listIndex > 0) {
     songElements[listIndex].classList.remove("active");
     listIndex--;
-    console.log(listIndex, onPlayList.length)
   }
   changeSong(listIndex);
 });
 
-/* Volume */
-
-const localVolume = localStorage.getItem("volumen");
-if (localVolume) {
-  if (localVolume / 100 === 0) {
-    volIcon.src = "static/img/mediaPlayer/muted.svg";
-  } else if (localVolume / 100 < 0.5) {
-    volIcon.src = "static/img/mediaPlayer/volume-down.svg";
-  } else {
-    volIcon.src = "static/img/mediaPlayer/volume.svg";
-  }
-  audio.volume = (localVolume / 100).toString();
-  volume.value = localVolume;
-}
+/* Volume Control */
 
 volume.addEventListener("input", function (e) {
   audio.volume = e.currentTarget.value / 100;
@@ -224,6 +153,7 @@ const createNewSong = (songs, i) => {
     title: songs[i].childNodes[5].innerHTML,
     author: songs[i].childNodes[7].innerHTML,
     file: songs[i].childNodes[9].href,
+    img: songs[i].childNodes[3].src,
   };
 
   return newPlayList(songData);
@@ -232,6 +162,7 @@ const createNewSong = (songs, i) => {
 const startPlaylist = (startPlaylist) => {
   // console.log(songs[i].childNodes)
 
+  playingSongImg.src = startPlaylist[0].img;
   songTitle.innerHTML = startPlaylist[0].title;
   songAuthor.innerHTML = startPlaylist[0].author;
   songTitleAuthor.innerHTML =
@@ -239,15 +170,18 @@ const startPlaylist = (startPlaylist) => {
   audio.src = startPlaylist[0].file;
 
   playPause.src = "static/img/mediaPlayer/pause.svg";
+  playingSongImg.style.display = "block";
+
   audio.play();
 };
 
 for (let i = 0; i < songs.length; i++) {
-
   // add click event to song tittle
   songs[i].addEventListener("click", () => {
     // Delete songs in sideBar
     removeSideBarSongs();
+
+    playingSongImg.style.display = "block";
 
     const myNewList = createNewSong(songs, i);
     startPlaylist(myNewList);
@@ -271,16 +205,19 @@ for (let i = 0; i < songs.length; i++) {
   addSong[i].addEventListener("click", (e) => {
     e.stopPropagation();
 
-    navMenu.previousElementSibling.classList.toggle("active");
+    overlay.classList.toggle("active");
     navMenu.classList.toggle("active");
     navMenu.nextElementSibling.classList.toggle("active");
-    
+
     if (onPlayList.length > 0) {
       const songData = {
         title: songs[i].childNodes[5].innerHTML,
         author: songs[i].childNodes[7].innerHTML,
         file: songs[i].childNodes[9].href,
+        img: songs[i].childNodes[3].src,
       };
+
+      console.log(songData);
 
       if (
         onPlayList.filter(function (e) {
@@ -311,9 +248,7 @@ audio.addEventListener("ended", () => {
 for (let i = 0; i < playlistObjets.length; i++) {
   playlistObjets[i].addEventListener("click", () => {
     // Active navBAr to show list in phones
-    navMenu.previousElementSibling.classList.toggle("active");
-    navMenu.classList.toggle("active");
-    navMenu.nextElementSibling.classList.toggle("active");
+    openNavbar();
 
     divisor.classList.add("active");
 
@@ -327,16 +262,15 @@ for (let i = 0; i < playlistObjets.length; i++) {
         title: onPlayList[i].title,
         author: onPlayList[i].author,
         file: onPlayList[i].file,
+        img: onPlayList[i].img,
       };
 
       addSidebarSong(songData, i);
     }
 
+    playingSongImg.style.display = "block";
+
     songElements[0].classList.add("active");
     startPlaylist(onPlayList);
   });
-}
-
-if (seeCount.length === 7) {
-  seeMoreLink.classList.remove("hidden");
 }

@@ -1,24 +1,23 @@
 {% extends 'audios/base.html' %} {% load static %} {% block content %}
 
-
 <!-- Playlists -->
 <h2 class="title">Listas de Reproducción</h2>
 <div class="mar15 playlists">
   {% if playlists %} {% for playlist in playlists %}
-    <div class="content mar15 playlist-object">
-      <div class="card">
-        <img src="{{ playlist.image.url }}" alt="" />
-        <h4>{{ playlist.name }}</h4>
-      </div>
+  <div class="content mar08 playlist-object">
+    <div class="card">
+      <img src="{{ playlist.image.url }}" alt="" />
+      <h4>{{ playlist.name }}</h4>
     </div>
+  </div>
   {% endfor %} {% endif %}
 </div>
 
 <!-- Songs -->
 <h2 class="title">Canciones</h2>
-<div class="mar15 songs">
+<div class="songs">
   {% for audio in audios %} {% if audio.category.name == "song" %}
-  <div class="song mar15 see-count">
+  <div class="song mar08 see-count">
     <div class="content">
       <div class="card get-music" title="{{ audio.name }}">
         <img
@@ -26,13 +25,17 @@
           src="{% static 'img/mediaPlayer/plus-circle.svg' %}"
           alt=""
         />
-        <img src="
+        <img
+          class="song-img"
+          src="
         {% if audio.image %}
           {{ audio.image.url }}
         {% else %}
           {{ audio.image_link }}
         {% endif %}
-        " alt="" />
+        "
+          alt=""
+        />
         <h4>{{ audio.name }}</h4>
         <p>{{ audio.artist }}</p>
         <a href="{{ audio.file.url }}"></a>
@@ -42,21 +45,19 @@
 
   {% endif %} {% endfor %}
 
-  <div class="song mar15">
-    <div class="content">
-      <div class="see-more">
-        <a class="see-more-link hidden" href="{{ audio.file.url }}">
-          Ver mas...</a
-        >
-      </div>
+  <div class="song mar08">
+    <div class="see-more">
+      <a class="see-more-link hidden" href="{{ audio.file.url }}">
+        MOSTRA TODO</a
+      >
     </div>
   </div>
 </div>
 
 <h2 class="title">Agregado Recientemente</h2>
-<div class="mar15 songs">
+<div class="songs">
   {% for audio in new_audios %} {% if audio.category.name == "song" %}
-  <div class="song mar15">
+  <div class="song mar08">
     <div class="content">
       <div class="card get-music" title="{{ audio.name }}">
         <img
@@ -64,13 +65,17 @@
           src="{% static 'img/mediaPlayer/plus-circle.svg' %}"
           alt=""
         />
-        <img src="
+        <img
+          class="song-img"
+          src="
         {% if audio.image %}
           {{ audio.image.url }}
         {% else %}
           {{ audio.image_link }}
         {% endif %}
-        " alt="" />
+        "
+          alt=""
+        />
         <h4>{{ audio.name }}</h4>
         <p>{{ audio.artist }}</p>
         <a href="{{ audio.file.url }}"></a>

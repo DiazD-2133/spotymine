@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Unbounded:wght@200;300;400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@100;400;700;900&display=swap");
 
 /* Common Styles*/
 * {
@@ -6,68 +6,12 @@
   padding: 0;
   box-sizing: border-box;
   text-decoration: none;
-  font-family: "Unbounded", sans-serif;
+  font-family: "Heebo", sans-serif;
   font-weight: 400;
 }
 
-.mar15 {
-  margin: 1.5rem;
-}
-
-.modal {
-  visibility: hidden;
-  width: 100%;
-  min-height: 100%;
-  background-color: rgba(36, 27, 27, 0.692);
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 5;
-  cursor: pointer;
-}
-
-#navMenu {
-  visibility: hidden;
-  cursor: pointer;
-  position: fixed;
-  top: 0.6rem;
-  left: 0.5rem;
-  z-index: 1;
-}
-
-#navMenu > span {
-  display: block;
-  width: 28px;
-  height: 2px;
-  border-radius: 9999px;
-  background-color: #818181;
-}
-
-#navMenu > span:not(:last-child) {
-  margin-bottom: 7px;
-}
-
-#navMenu,
-#navMenu > span {
-  transition: all 0.4s ease-in-out;
-}
-
-#navMenu.active > span:nth-child(1) {
-  transition-delay: 0.8s;
-  transform: translateY(9px) rotate(-45deg);
-}
-
-#navMenu.active > span:nth-child(2) {
-  width: 0;
-}
-
-#navMenu.active > span:nth-child(1),
-#navMenu.active > span:nth-child(3) {
-  transition-delay: 0.4s;
-}
-
-#navMenu.active > span:nth-child(3) {
-  transform: translateY(-9px) rotate(45deg);
+.mar08 {
+  margin: 0.8rem;
 }
 
 .sidenav {
@@ -91,11 +35,17 @@
 .nav-item {
   display: flex;
   padding: 0.8rem 2rem;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .nav-item a i {
   margin-right: 10px;
+}
+
+/* Sidebar song */
+.sidenav .song-elements {
+  font-size: 0.8rem;
+  cursor: pointer;
 }
 
 .song-elements.active {
@@ -109,8 +59,10 @@
   width: 80%;
 }
 
+/* containers */
+
 .container {
-  background-color: #1d1c1c;
+  background-color: #111111;
   margin-left: 18%;
   width: 80%;
   height: 100%;
@@ -122,6 +74,9 @@
 
 .title {
   color: #d6d1d1;
+  font-weight: 900;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
 }
 
 .playlists,
@@ -136,12 +91,15 @@
   cursor: pointer;
 }
 
+/* Cards Section */
+
 .card {
   position: relative;
-  background-color: #333131;
+  background-color: #252424;
   padding: 1rem;
-  border-radius: 8px;
+  border-radius: 5px;
   text-align: center;
+  width: 13rem;
 }
 
 .card:hover {
@@ -151,7 +109,7 @@
 .add-song {
   position: absolute;
   width: 50px;
-  top: -17px;
+  top: 17px;
   right: 10px;
   opacity: 0.6;
   cursor: pointer;
@@ -159,6 +117,7 @@
 
 .add-song:hover {
   opacity: 1;
+  filter: drop-shadow(5px 5px 5px #111);
 }
 
 .hidden {
@@ -166,14 +125,19 @@
 }
 
 .playlist-object img {
-  max-height: 8rem;
+  width: 100%;
+  max-height: 11rem;
+  object-fit: cover;
 }
 
-.song img {
+.song .song-img {
+  width: 100%;
   height: 7rem;
+  object-fit: cover;
 }
 
 .card h4 {
+  font-weight: 700;
   font-size: 14px;
   color: #dfdfdf;
   text-overflow: ellipsis;
@@ -183,15 +147,10 @@
   margin: 10px auto 0;
 }
 
-.card h4:hover {
-  cursor: pointer;
-  text-shadow: 2px 2px #000;
-}
-
 .card p {
   font-size: 0.8rem;
   color: #818181;
-  margin: 10px;
+  margin: 10px auto;
   width: 8rem;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -229,16 +188,17 @@
 .see-more {
   height: 100%;
   width: 100%;
-  position: relative;
-  background-color: #1d1c1c;
+  display: flex;
   text-align: center;
-  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
 }
 
 .see-more a {
+  display: block;
+  margin: auto;
   color: #818181;
-  position: relative;
-  bottom: -10rem;
   font-size: 0.8rem;
   font-weight: 900;
 }
@@ -262,15 +222,34 @@
 
 /*======= Media Player ===========*/
 
-.title-music-container {
-  margin-top: 20px;
+.son-info {
   width: 80%;
-  height: 80%;
   width: fit-content;
   color: #818181;
 }
 
+.son-info .lef {
+  float: left;
+  width: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.son-info .right {
+  float: right;
+}
+
+.playing-song-img {
+  display: none;
+  width: 4rem;
+}
+
 .song-title {
+  display: flex;
+  text-transform: capitalize;
+  color: #ccc;
   font-weight: 600;
   font-size: 17px;
   letter-spacing: 0.5px;
@@ -284,6 +263,7 @@
 
 .song-author {
   margin-top: 0.5rem;
+  text-transform: capitalize;
   font-size: 12px;
   color: rgb(167, 167, 167);
   letter-spacing: 0.1px;
@@ -422,17 +402,17 @@ audio {
 
   /* Track */
   ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: #111111;
   }
 
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: #888;
+    background: #363636;
   }
 
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: #555;
+    background: #222222;
   }
 
   .sidenav {
