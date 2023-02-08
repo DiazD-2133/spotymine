@@ -54,8 +54,6 @@ for (i = 0; i < auto_dropdown.length; i++) {
   }
 }
 
-console.log();
-
 if (window.screen.availWidth <= 600) {
   for (let i = 0; i < songs.length; i++) {
     addSong[i].classList.remove("hidden");

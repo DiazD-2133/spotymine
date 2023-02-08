@@ -142,7 +142,7 @@
   }
 
   .song-title-author {
-    color: #818181;
+    color: #ccc;
     font-size: 0.8rem;
     display: -webkit-box;
     -webkit-line-clamp: 1; /* number of lines to show */
